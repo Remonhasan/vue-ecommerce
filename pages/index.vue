@@ -5,14 +5,14 @@
         <div class="col-md-8 text-center">
           <h1 class="display-4 text-primary mb-4">Welcome to the Home Page!</h1>
           <p class="lead text-muted">
-            This is the default homepage of your Nuxt app. Explore more by navigating through the site.
+            This is the default homepage of your Nuxt app. Simple CRUD app on category menu.
           </p>
           <NuxtLink 
-            to="/about" 
+            to="/category" 
             class="btn btn-primary btn-lg mt-4"
             role="button"
           >
-            Go to About Page
+            Go to Category Page
           </NuxtLink>
         </div>
       </div>

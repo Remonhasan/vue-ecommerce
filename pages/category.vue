@@ -1,12 +1,12 @@
 <template>
     <div class="container mt-5">
-      <h1 class="text-center mb-4">Category Listing</h1>
+      <h1 class="text-center mb-4">Categories</h1>
       <div class="table-responsive">
         <table class="table table-striped table-bordered">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Category Name</th>
+              <th scope="col">Name</th>
               <th scope="col">Description</th>
               <th scope="col">Actions</th>
             </tr>
@@ -18,7 +18,7 @@
               <td>{{ category.name }}</td>
               <td>{{ category.description }}</td>
               <td>
-                <button class="btn btn-primary btn-sm me-2" @click="editCategory(category.id)">
+                <button class="btn btn-primary btn-sm me-2" @click="editCategory(category)">
                   Edit
                 </button>
                 <button class="btn btn-danger btn-sm" @click="deleteCategory(category.id)">
@@ -30,33 +30,89 @@
         </table>
       </div>
     </div>
+
+    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form @submit.prevent="updateCategory">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+              type="text"
+              id="name"
+              class="form-control"
+              v-model="selectedCategory.name"
+              required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+              id="description"
+              class="form-control"
+              v-model="selectedCategory.description"
+              rows="3" 
+              required 
+              />
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+      </div>
+      </div>
+    </div>
+  </div>
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue';
+  import { ref } from 'vue';
   
-  // Mock categories data or fetch from your API
+  // Categories
   const categories = ref([
     { id: 1, name: 'Technology', description: 'All about technology' },
     { id: 2, name: 'Health', description: 'Health and wellness' },
     { id: 3, name: 'Education', description: 'Educational resources' },
   ]);
   
-  // Function to handle category edit
-  const editCategory = (id) => {
-    console.log('Editing category with ID:', id);
-    // Add your logic here to edit a category
+  const selectedCategory = ref({id: null, name: '', description: ''});
+
+  // Edit
+  const editCategory = (category) => {
+
+    selectedCategory.value = {...category}
+    const modal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
+    modal.show();
+
+  };
+
+  // Update
+  const updateCategory = () => {
+    const index = categories.value.findIndex(item => item.id === selectedCategory.value.id);
+    if(index !== -1){
+      categories.value[index] = {...selectedCategory.value};
+    }
+
+    // Modal close
+    const modalElement = document.getElementById('editCategoryModal');
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    modal.hide();
   };
   
-  // Function to handle category deletion
+  // Delete
   const deleteCategory = (id) => {
-    console.log('Deleting category with ID:', id);
-    // Add your logic here to delete a category
+   categories.value = categories.value.filter(category => category.id != id);
   };
   </script>
   
   <style scoped>
-  /* Styling the table */
+ 
   .table th, .table td {
     text-align: center;
   }
@@ -70,7 +126,6 @@
     background-color: #f9f9f9;
   }
   
-  /* Customize the buttons */
   .btn-sm {
     font-size: 0.875rem;
     padding: 0.25rem 0.5rem;
