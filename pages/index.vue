@@ -1,7 +1,6 @@
 <template>
     <div class="container mt-5">
       <div class="row justify-content-center">
-        <!-- Main Content Section -->
         <div class="col-md-8 text-center">
           <h1 class="display-4 text-primary mb-4">Welcome to the Home Page!</h1>
           <p class="lead text-muted">
@@ -20,14 +19,14 @@
   </template>
   
   <script setup>
-  // You can add any additional logic for the Home page here.
+  
   </script>
   
   <style scoped>
-  /* Custom styling for the home page */
+  
   h1 {
-    font-weight: 700; /* Makes the heading bold */
-    color: #007bff; /* Blue color for the heading */
+    font-weight: 700; 
+    color: #007bff; 
   }
   
   p {
@@ -36,20 +35,20 @@
   }
   
   .btn {
-    text-transform: uppercase; /* Makes the text on button uppercase */
-    font-weight: 600; /* Bold button text */
+    text-transform: uppercase; 
+    font-weight: 600; 
   }
   
   .container {
-    padding: 0 15px; /* Adds padding to prevent content from touching the edges on smaller screens */
+    padding: 0 15px; 
   }
   
   .mt-5 {
-    margin-top: 5rem !important; /* Adds margin to the top */
+    margin-top: 5rem !important; 
   }
   
   .text-muted {
-    color: #6c757d; /* Lighter text color for the paragraph */
+    color: #6c757d; 
   }
   
   .text-center {
